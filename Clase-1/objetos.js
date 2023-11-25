@@ -1,4 +1,4 @@
-let persona = {
+let daniel = {
     'nombre': "Daniel",
     'apellido': "Suarez",
     'edad': 19,
@@ -10,7 +10,7 @@ let persona = {
     }
 };
 
-console.log(persona.nombreCompleto());
+console.log(daniel.nombreCompleto());
 
 class Persona{
     nombre;
@@ -30,9 +30,15 @@ class Persona{
     }
 }
 
-for(propiedad in persona){
-    console.log(propiedad);
+for(propiedad in daniel){
+    console.log(daniel[propiedad]);
 }
 
 let p1 = new Persona("Daniel", "Suarez", "Guadalupe", "14/04/2004");
 console.log(p1);
+/*
+console.log(p1.nombre);
+console.log(p1["nombre"]);
+
+console.log(daniel.nombre);
+console.log(daniel["nombre"]);*/

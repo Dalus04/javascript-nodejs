@@ -28,3 +28,6 @@ console.log(BigInt(Number.MAX_SAFE_INTEGER) + 1n);
 console.log(BigInt(Number.MAX_SAFE_INTEGER) + 2n);
 var a = Symbol("hola");
 console.log(a);
+/*
+var nombre = 17
+console.log(nombre);*/
