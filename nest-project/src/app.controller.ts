@@ -12,7 +12,6 @@ export class AppController {
 
   @Post()
   postPrincipal(@Body() req): string{
-    console.log(req);
-    return "Metodo post";
+    return this.appService.postMetodo(req);
   }
 }
