@@ -10,6 +10,8 @@ import { PetsService } from './pets/pets.service';
 import { PetsModule } from './pets/pets.module';
 import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entities/order.entity';
+import { PersonaModule } from './persona/persona.module';
+import { Persona } from './persona/entities/persona.entity';
 
 @Module({
   imports: [
@@ -19,12 +21,12 @@ import { Order } from './orders/entities/order.entity';
       port: 5432,
       password: '12400..',
       username: 'postgres',
-      entities: [Order],
+      entities: [Order, Persona],
       database: 'postgres',
       synchronize: true,
       logging: true,
     }),
-    UserModule, PetsModule, OrdersModule
+    UserModule, PetsModule, OrdersModule, PersonaModule
   ],
   controllers: [AppController, UserController, PetsController],
   providers: [AppService, UserService, PetsService],
