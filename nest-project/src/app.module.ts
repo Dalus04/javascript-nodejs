@@ -12,6 +12,9 @@ import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entities/order.entity';
 import { PersonaModule } from './persona/persona.module';
 import { Persona } from './persona/entities/persona.entity';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AnimalsModule } from './animals/animals.module';
+import { LikesSchema } from './animals/entities/likes.schema';
 
 @Module({
   imports: [
@@ -26,7 +29,9 @@ import { Persona } from './persona/entities/persona.entity';
       synchronize: true,
       logging: true,
     }),
-    UserModule, PetsModule, OrdersModule, PersonaModule
+    MongooseModule.forRoot('mongodb://localhost/redes'),
+    MongooseModule.forFeature([{name: 'likes', schema: LikesSchema}]),
+    UserModule, PetsModule, OrdersModule, PersonaModule, AnimalsModule
   ],
   controllers: [AppController, UserController, PetsController],
   providers: [AppService, UserService, PetsService],
