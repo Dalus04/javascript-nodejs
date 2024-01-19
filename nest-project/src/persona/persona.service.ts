@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -21,8 +21,13 @@ export class PersonaService {
     return this.personaRepository.find();
   }
 
-  findOne(id: number): Promise<Persona>{
-    return this.personaRepository.findOneById(id);
+  async findOne(id: number){
+    let p = await this.personaRepository.findOneById(id);
+    console.log(p);
+    if(p == null || p == undefined){
+      throw new NotFoundException("No se encuentra");
+    }
+    return p;
   }
 
   update(id: number, updatePersonaDto: UpdatePersonaDto) {
