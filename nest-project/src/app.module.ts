@@ -15,6 +15,7 @@ import { Persona } from './persona/entities/persona.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AnimalsModule } from './animals/animals.module';
 import { LikesSchema } from './animals/entities/likes.schema';
+import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { LikesSchema } from './animals/entities/likes.schema';
       port: 5432,
       password: '12400..',
       username: 'postgres',
-      entities: [Order, Persona],
+      entities: [Order, Persona, User],
       database: 'postgres',
       synchronize: true,
       logging: true,
@@ -33,7 +34,7 @@ import { LikesSchema } from './animals/entities/likes.schema';
     MongooseModule.forFeature([{name: 'likes', schema: LikesSchema}]),
     UserModule, PetsModule, OrdersModule, PersonaModule, AnimalsModule
   ],
-  controllers: [AppController, UserController, PetsController],
-  providers: [AppService, UserService, PetsService],
+  controllers: [AppController, PetsController],
+  providers: [AppService, PetsService],
 })
 export class AppModule {}

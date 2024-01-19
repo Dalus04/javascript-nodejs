@@ -1,11 +1,18 @@
 import { Body, Injectable } from '@nestjs/common';
 import { userDTO } from "./DTO/user.dto";
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
 
+    constructor(
+        @InjectRepository(User) private readonly userRepository: Repository<User>,
+    ){}
+    
     users: userDTO[] = [
-        {
+        /*{
             id: 1,
             name: "Daniel",
             lastname: "Suarez",
@@ -20,7 +27,7 @@ export class UserService {
             edad: 19,
             email: "danielorlandosuarez1401@gmail.com",
             profile: "user"
-        }
+        }*/
     ]
 
     getUserService(): userDTO[]{
@@ -49,11 +56,11 @@ export class UserService {
 
         let index = this.users.indexOf(user);
 
-        user.name = req.name;
+        /*user.name = req.name;
         user.lastname = req.lastname;
         user.edad = req.edad;
         user.email = req.email;
-        user.profile = req.profile;
+        user.profile = req.profile;*/
 
         this.users[index] = user;
         return user;
