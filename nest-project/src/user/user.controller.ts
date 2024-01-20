@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { UserService } from "./user.service";
 import { userDTO } from "./DTO/user.dto";
+import { User } from './entities/user.entity';
 
 @Controller('users')
 export class UserController {
@@ -12,12 +13,12 @@ export class UserController {
     }
 
     @Get(":id")
-    getSpecificUser(@Param("id") id:string): Promise<userDTO>{
+    getSpecificUser(@Param("id") id:string): Promise<User>{
         return this.userService.getSpecificUser(Number(+id));
     }
 
     @Post()
-    postUser(@Body() user:userDTO): Promise<userDTO>{
+    postUser(@Body() user:userDTO): Promise<User>{
         return this.userService.postUserService(user);
     }
 

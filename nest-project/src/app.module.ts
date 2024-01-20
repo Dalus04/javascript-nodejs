@@ -33,8 +33,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     MongooseModule.forRoot('mongodb://localhost/redes'),
     MongooseModule.forFeature([{name: 'likes', schema: LikesSchema}]),
-    UserModule, PetsModule, OrdersModule, PersonaModule, AnimalsModule, AuthModule
-  ],
+    UserModule, PetsModule, OrdersModule, PersonaModule, AnimalsModule, AuthModule],
   controllers: [AppController, PetsController],
   providers: [AppService, PetsService],
 })

@@ -12,31 +12,14 @@ export class UserService {
         @InjectRepository(User) private readonly userRepository: Repository<User>,
     ){}
     
-    /*users: userDTO[] = [
-        {
-            id: 1,
-            name: "Daniel",
-            lastname: "Suarez",
-            edad: 19,
-            email: "danielorlandosuarez14@gmail.com",
-            profile: "admin"
-        },
-        {
-            id: 2,
-            name: "Orlando",
-            lastname: "Lopez",
-            edad: 19,
-            email: "danielorlandosuarez1401@gmail.com",
-            profile: "user"
-        }
-    ]*/
+    //users: userDTO[] = [];
 
     getUserService(): Promise<userDTO[]>{
         //return this.users;
         return this.userRepository.find();
     }
 
-    async postUserService(req: userDTO): Promise<userDTO>{
+    async postUserService(req: userDTO): Promise<User>{
         /*console.log(req);
         req.id = this.users.length + 1;
         this.users.push(req);
@@ -47,7 +30,7 @@ export class UserService {
         return this.userRepository.save(req);
     }
 
-    getSpecificUser(id: number): Promise<userDTO>{
+    getSpecificUser(id: number): Promise<User>{
         /*return this.users.find((obj)=>{
             return obj.id == id;
         })*/
