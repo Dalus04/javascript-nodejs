@@ -22,7 +22,8 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      //host: 'localhost',
+      host: 'host.docker.internal',
       port: 5432,
       password: '12400..',
       username: 'postgres',
@@ -31,7 +32,7 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
       logging: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost/redes'),
+    MongooseModule.forRoot('mongodb://host.docker.internal/redes'),
     MongooseModule.forFeature([{name: 'likes', schema: LikesSchema}]),
     UserModule, PetsModule, OrdersModule, PersonaModule, AnimalsModule, AuthModule],
   controllers: [AppController, PetsController],
