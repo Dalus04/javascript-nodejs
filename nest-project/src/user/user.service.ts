@@ -3,6 +3,7 @@ import { userDTO } from "./DTO/user.dto";
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -11,8 +12,8 @@ export class UserService {
         @InjectRepository(User) private readonly userRepository: Repository<User>,
     ){}
     
-    users: userDTO[] = [
-        /*{
+    /*users: userDTO[] = [
+        {
             id: 1,
             name: "Daniel",
             lastname: "Suarez",
@@ -27,28 +28,34 @@ export class UserService {
             edad: 19,
             email: "danielorlandosuarez1401@gmail.com",
             profile: "user"
-        }*/
-    ]
+        }
+    ]*/
 
-    getUserService(): userDTO[]{
-        return this.users;
+    getUserService(): Promise<userDTO[]>{
+        //return this.users;
+        return this.userRepository.find();
     }
 
-    postUserService(req: userDTO): userDTO{
-        console.log(req);
+    async postUserService(req: userDTO): Promise<userDTO>{
+        /*console.log(req);
         req.id = this.users.length + 1;
         this.users.push(req);
-        return req;
+        return req;*/
+        const salt = await bcrypt.genSalt();
+        let passwordCipher = await bcrypt.hash(req.password, salt);
+        req.password = passwordCipher;
+        return this.userRepository.save(req);
     }
 
-    getSpecificUser(id: number): userDTO{
-        return this.users.find((obj)=>{
+    getSpecificUser(id: number): Promise<userDTO>{
+        /*return this.users.find((obj)=>{
             return obj.id == id;
-        })
+        })*/
+        return this.userRepository.findOneById(id);
     }
 
-    updateUserService(req: userDTO): userDTO{
-        console.log(req.id);
+    updateUserService(id: number, req: userDTO){
+        /*console.log(req.id);
 
         let user = this.users.find((obj)=>{
             return obj.id == req.id;
@@ -56,24 +63,30 @@ export class UserService {
 
         let index = this.users.indexOf(user);
 
-        /*user.name = req.name;
+        user.name = req.name;
         user.lastname = req.lastname;
         user.edad = req.edad;
         user.email = req.email;
-        user.profile = req.profile;*/
+        user.profile = req.profile;
 
         this.users[index] = user;
-        return user;
+        return user;*/
+        this.userRepository.update(id, req);
     }
 
-    deleteUser(id: number): userDTO{
-        let user = this.users.find((obj)=>{
+    deleteUser(id: number){
+        /*let user = this.users.find((obj)=>{
             return obj.id == id;
         });
         let index = this.users.indexOf(user);
         if(index != -1){
             this.users.splice(index, 1);
         }
-        return user;
+        return user;*/
+        this.userRepository.delete(id);
+    }
+
+    async findUserByName(username: string){
+        return this.userRepository.findOne({where: {username}});
     }
 }

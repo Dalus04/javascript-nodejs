@@ -16,6 +16,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AnimalsModule } from './animals/animals.module';
 import { LikesSchema } from './animals/entities/likes.schema';
 import { User } from './user/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { User } from './user/entities/user.entity';
     }),
     MongooseModule.forRoot('mongodb://localhost/redes'),
     MongooseModule.forFeature([{name: 'likes', schema: LikesSchema}]),
-    UserModule, PetsModule, OrdersModule, PersonaModule, AnimalsModule
+    UserModule, PetsModule, OrdersModule, PersonaModule, AnimalsModule, AuthModule
   ],
   controllers: [AppController, PetsController],
   providers: [AppService, PetsService],
